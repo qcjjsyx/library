@@ -45,7 +45,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus';
 import { User, Lock } from '@element-plus/icons-vue';
-// import { useUserStore } from '@/stores/userStore.js';
+import { useUserStore } from '@/stores/userStore.js';
 import ValidCode from '../components/ValidCode.vue';
 import { loginAPI } from '@/api/auth.js';
 
@@ -90,7 +90,7 @@ const login = async () => {
       if (res.data.code === 200) {
         ElMessage.success("登录成功");
         localStorage.setItem('token', res.data.data.token)
-       // await useUserStore().getUserInfo();
+       await useUserStore().getUserInfo();
         router.push("/book");
       } else {
         ElMessage.error(res.data.message);

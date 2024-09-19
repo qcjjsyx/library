@@ -5,6 +5,7 @@ import com.example.library.domain.User;
 import com.example.library.dto.LoginRequesetDto;
 import com.example.library.dto.LoginResponseDto;
 import com.example.library.dto.RegisterDto;
+import com.example.library.dto.UserInfoDto;
 import com.example.library.mapper.UserMapper;
 import com.example.library.service.UserService;
 import com.example.library.util.JwtUtil;
@@ -52,5 +53,26 @@ public class UserServiceImpl implements UserService {
         LoginResponseDto loginResponseDto = new LoginResponseDto();
         loginResponseDto.setToken(jwtUtil.generateToken(loginRequesetDto.getUsername()));
         return loginResponseDto;
+    }
+
+    @Override
+    public UserInfoDto getUserByUserName(String username) {
+        User user = userMapper.findOneByUsername(username);
+        if(user == null) {
+            return null;
+        }
+        return toUserInfoDto(user);
+    }
+
+    private UserInfoDto toUserInfoDto(User user) {
+        UserInfoDto userInfoDto = new UserInfoDto();
+        userInfoDto.setNickName(user.getNickName());
+        userInfoDto.setAddress(user.getAddress());
+        userInfoDto.setPhone(user.getPhone());
+        userInfoDto.setEmail(user.getEmail());
+        userInfoDto.setId(user.getId());
+        userInfoDto.setUsername(user.getUsername());
+        userInfoDto.setRole(user.getRole());
+        return userInfoDto;
     }
 }

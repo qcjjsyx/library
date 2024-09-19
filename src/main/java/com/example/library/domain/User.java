@@ -154,7 +154,7 @@ public class User implements Serializable {
     /**
      * 
      */
-    public String getAddress(String address) {
+    public String getAddress() {
         return this.address;
     }
 
